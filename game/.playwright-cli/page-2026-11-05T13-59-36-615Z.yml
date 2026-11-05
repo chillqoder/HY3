@@ -1,0 +1,50 @@
+- generic [ref=f5e2]:
+  - generic:
+    - generic:
+      - generic:
+        - generic: INTEGRITY
+        - generic:
+          - generic: RESONANCE
+          - generic: "100"
+          - generic: PULSE 35 · SHIELD 50
+      - generic:
+        - generic:
+          - generic: RELAYS
+          - generic:
+            - generic: A
+            - generic: B
+            - generic: C
+        - generic:
+          - generic: ARCHIVES
+          - generic: 0 / 3
+        - generic:
+          - button "Mute audio" [ref=f5e4] [cursor=pointer]: SOUND ON
+          - button "Pause" [ref=f5e5] [cursor=pointer]: PAUSE
+    - generic: Buried Workshop
+    - generic:
+      - generic:
+        - button "Move left" [ref=f5e6] [cursor=pointer]: ◀
+        - button "Move right" [ref=f5e7] [cursor=pointer]: ▶
+      - generic:
+        - button "Echo pulse" [ref=f5e8] [cursor=pointer]: PULSE
+        - button "Dash" [ref=f5e9] [cursor=pointer]: DASH
+        - button "Interact" [ref=f5e10] [cursor=pointer]: USE
+        - button "Jump" [ref=f5e11] [cursor=pointer]: JUMP
+    - generic [ref=f5e13]:
+      - heading "DEEPWAKE" [level=1] [ref=f5e14]
+      - paragraph [ref=f5e15]: Restore three relays beneath the buried station, reconnect the ascent lift, and reach the surface.
+      - generic [ref=f5e16]:
+        - generic [ref=f5e17]: A/D move · Space jump (hold) · Shift dash · Q echo pulse · E interact · P pause · R retry
+        - generic [ref=f5e18]:
+          - generic [ref=f5e19]: Personal Records
+          - generic [ref=f5e20]:
+            - generic [ref=f5e21]: Best completion time
+            - generic [ref=f5e22]: 1:08.5
+            - generic [ref=f5e23]: Best full-archive time
+            - generic [ref=f5e24]: —
+            - generic [ref=f5e25]: Fewest recoveries
+            - generic [ref=f5e26]: "1"
+        - generic [ref=f5e27]:
+          - 'button "Sound: On" [ref=f5e29] [cursor=pointer]'
+          - 'button "Reduced Motion: Off" [ref=f5e31] [cursor=pointer]'
+      - button "Begin Expedition" [ref=f5e33] [cursor=pointer]

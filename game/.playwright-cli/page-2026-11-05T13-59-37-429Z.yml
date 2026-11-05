@@ -1,0 +1,35 @@
+- generic [ref=f5e2]:
+  - generic:
+    - generic:
+      - generic:
+        - generic: INTEGRITY
+        - generic:
+          - generic: RESONANCE
+          - generic: "100"
+          - generic: PULSE 35 · SHIELD 50
+      - generic:
+        - generic:
+          - generic: RELAYS
+          - generic:
+            - generic: A
+            - generic: B
+            - generic: C
+        - generic:
+          - generic: ARCHIVES
+          - generic: 0 / 3
+        - generic:
+          - button "Mute audio" [ref=f5e4] [cursor=pointer]: SOUND ON
+          - button "Pause" [ref=f5e5] [cursor=pointer]: PAUSE
+    - generic: Buried Workshop
+    - generic: A / D or Arrow keys to move. SPACE / Z to jump — hold for a higher jump.
+    - generic: Reboot station · systems restored
+    - generic: E — Reboot Station
+    - generic:
+      - generic:
+        - button "Move left" [ref=f5e6] [cursor=pointer]: ◀
+        - button "Move right" [ref=f5e7] [cursor=pointer]: ▶
+      - generic:
+        - button "Echo pulse" [ref=f5e8] [cursor=pointer]: PULSE
+        - button "Dash" [ref=f5e9] [cursor=pointer]: DASH
+        - button "Interact" [ref=f5e10] [cursor=pointer]: USE
+        - button "Jump" [ref=f5e11] [cursor=pointer]: JUMP

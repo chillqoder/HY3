@@ -1,0 +1,26 @@
+- generic [ref=f10e2]:
+  - generic:
+    - generic:
+      - generic:
+        - generic: INTEGRITY
+        - generic:
+          - generic: RESONANCE
+          - generic: "100"
+          - generic: PULSE 35 · SHIELD 50
+      - generic:
+        - generic:
+          - generic: RELAYS
+          - generic:
+            - generic: A
+            - generic: B
+            - generic: C
+        - generic:
+          - generic: ARCHIVES
+          - generic: 0 / 3
+        - generic:
+          - button "Mute audio" [ref=f10e4] [cursor=pointer]: SOUND ON
+          - button "Pause" [ref=f10e5] [cursor=pointer]: PAUSE
+    - generic: Buried Workshop
+    - generic: A / D or Arrow keys to move. SPACE / Z to jump — hold for a higher jump.
+    - generic: Reboot station · systems restored
+    - generic: E — Reboot Station

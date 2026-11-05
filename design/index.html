@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VIBRATO — Vibe Engineering Division</title>
+<meta name="description" content="VIBRATO is a development studio for the post-spec era. We turn intent into software by feel.">
+<meta name="theme-color" content="#1A1B19">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23EF4423'/%3E%3Ctext x='32' y='47' font-size='46' text-anchor='middle' fill='%23E8E1CE' font-family='monospace'%3E~%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============================================================
+     THE SHEET — a fixed 1440x900 schematic plate, scaled to fit.
+     ============================================================ -->
+<div class="stage" id="stage">
+  <div class="sheet" id="sheet">
+
+    <!-- printed substrate -->
+    <div class="paper" aria-hidden="true"></div>
+    <div class="paper-grid" aria-hidden="true"></div>
+
+    <!-- rulers / registration / fiducials (built by JS) -->
+    <svg class="rulers" id="rulers" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+    <!-- circuit traces behind the modules (built by JS) -->
+    <svg class="traces" id="traces" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+    <!-- ================= TOP RAIL ================= -->
+    <header class="mod top-rail">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><span>&#8961;</span></div>
+        <div>
+          <h1 class="wordmark">VIBRATO</h1>
+          <div class="brand-sub"><span>VIBE ENGINEERING DIVISION</span><i></i><span>EST. 2026</span></div>
+        </div>
+      </div>
+
+      <div class="signal-line" aria-hidden="true">
+        <div class="sl-top"><span>FIG. 01</span><span>SIGNAL PATH / REV. C</span><span>1:1</span></div>
+        <svg viewBox="0 0 520 26" preserveAspectRatio="none">
+          <path d="M0 13 H140 l7 -8 l7 16 l7 -16 l7 8 H360 l6 -6 l6 12 l6 -12 l6 6 H520" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        </svg>
+        <div class="sl-bot"><span>&#9656; INPUT: INTENT</span><span>&#9679; CARRIER LOCKED</span><span>OUTPUT: SOFTWARE &#9656;</span></div>
+      </div>
+
+      <div class="status">
+        <div class="status-row"><span class="live-dot"></span><b>ON AIR</b><span class="clock" id="clock">00:00:00</span></div>
+        <div class="status-row"><span>MDL 01 / SN 000-314</span><button class="snd-btn" id="sndBtn" aria-pressed="false">SND OFF</button></div>
+      </div>
+    </header>
+
+    <!-- ================= LEFT RAIL : CHANNEL SELECTOR ================= -->
+    <aside class="mod left-rail">
+      <div class="rail-spine">SELECT &nbsp;/&nbsp; CHANNEL</div>
+
+      <div class="mod-h"><span>01</span><b>INPUT SELECT</b><i></i></div>
+
+      <div class="dial-wrap">
+        <div class="dial" id="dial" role="slider" tabindex="0" aria-label="Channel selector" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1" aria-valuetext="Resonance">
+          <svg class="dial-scale" id="dialScale" viewBox="0 0 220 220" aria-hidden="true"></svg>
+          <div class="dial-disc" id="dialDisc">
+            <div class="dial-knurl"></div>
+            <div class="dial-pointer"></div>
+            <div class="dial-hub"><span>&#8961;</span><em>VIBE</em></div>
+          </div>
+        </div>
+        <div class="dial-caption"><span>ROTARY / 5 POS.</span><span id="dialReadout">01</span></div>
+      </div>
+
+      <div class="mod-h"><span>02</span><b>BAND INDEX</b><i></i></div>
+      <nav class="channels" id="channels" aria-label="Channels"></nav>
+
+      <div class="spec">
+        <div class="spec-h">UNIT SPECIFICATION</div>
+        <dl>
+          <div><dt>INPUT</dt><dd>INTENT / 1&#8211;5 WORDS</dd></div>
+          <div><dt>OUTPUT</dt><dd>RUNNING SOFTWARE</dd></div>
+          <div><dt>THD</dt><dd>0.02 %</dd></div>
+          <div><dt>LATENCY</dt><dd>ONE CONVERSATION</dd></div>
+        </dl>
+        <div class="spec-bar" aria-hidden="true"></div>
+      </div>
+    </aside>
+
+    <!-- ================= CENTER : VECTOR DISPLAY ================= -->
+    <main class="mod display-wrap">
+      <div class="crt-shell">
+        <div class="crt" id="crt">
+          <canvas id="vec"></canvas>
+          <div class="crt-shade" aria-hidden="true"></div>
+          <div class="crt-scan" aria-hidden="true"></div>
+          <div class="crt-vignette" aria-hidden="true"></div>
+          <div class="crt-static" id="crtStatic" aria-hidden="true"></div>
+          <div class="crt-corner tl"></div><div class="crt-corner tr"></div>
+          <div class="crt-corner bl"></div><div class="crt-corner br"></div>
+
+          <div class="crt-hud top">
+            <div class="ch-tab" id="chTab">CH&#183;01 <span>RESONANCE</span></div>
+            <div class="hud-right">
+              <span>MODE: VECTOR / P31</span>
+              <span id="hudCoords">X+000.0 Y+000.0 Z+000.0</span>
+            </div>
+          </div>
+
+          <div class="crt-head">
+            <div class="crt-kicker" id="crtKicker">TRANSMISSION 001 / 005</div>
+            <h2 class="crt-title" id="crtTitle">WE BUILD<br>BY FEELING.</h2>
+            <div class="crt-serif" id="crtSerif">Software, tuned not specified.</div>
+          </div>
+
+          <div class="crt-body" id="crtBody">
+            <div class="cb-meta" id="cbMeta">/// CALIBRATION COMPLETE — CHANNEL OPEN</div>
+            <div class="cb-lines" id="cbLines"></div>
+            <div class="cb-note" id="cbNote"></div>
+            <form class="tx-form" id="txForm" hidden>
+              <label for="txMsg">YOUR MESSAGE</label>
+              <div class="tx-row">
+                <input id="txMsg" type="text" maxlength="140" autocomplete="off" placeholder="tell us the vibe, not the requirements&#8230;">
+                <button type="submit" data-cursor="TRANSMIT">TRANSMIT &#9656;</button>
+              </div>
+              <div class="tx-alt">OR WRITE DIRECTLY <a href="mailto:hello@vibrato.studio">HELLO@VIBRATO.STUDIO</a></div>
+            </form>
+          </div>
+
+          <div class="crt-hud bottom">
+            <span>VIBRATO / VECTOR DISPLAY 01</span>
+            <span id="hudTime">T+00:00:00</span>
+            <span class="hud-blink">&#9608;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="under-strip">
+        <div class="us-stamp"><b>&#10003;</b><span>SIGNAL<br>VERIFIED</span></div>
+        <div class="us-quote">&#8220;Make it feel<br>like <em>something</em>.&#8221;</div>
+        <div class="us-bar"><div class="barcode" aria-hidden="true"></div><span>VB&#8211;000314&#8211;01</span></div>
+      </div>
+    </main>
+
+    <!-- ================= RIGHT RAIL : INSTRUMENTS ================= -->
+    <aside class="mod right-rail">
+      <div class="mod-h"><span>03</span><b>MONITOR</b><i></i></div>
+
+      <div class="scope-crt">
+        <canvas id="scope"></canvas>
+        <div class="scope-grid" aria-hidden="true"></div>
+        <div class="scope-hud top"><span>OSCILLOSCOPE</span><span id="scopeTag">CH 01</span></div>
+        <div class="scope-hud mid"><span id="scopeFreq">8.20</span><em>kHz</em></div>
+        <div class="scope-hud bot"><span>TRIG &#183; AUTO</span><span id="scopeAmp">AMP 0.74</span></div>
+      </div>
+
+      <div class="mod-h"><span>04</span><b>MODULATION</b><i></i></div>
+      <div class="knobs" id="knobs"></div>
+
+      <div class="mod-h"><span>05</span><b>LEVEL / dB</b><i></i></div>
+      <div class="meter"><div class="meter-segs" id="meterSegs"></div><div class="meter-scale"><span>&#8722;40</span><span>&#8722;20</span><span>&#8722;10</span><span>0</span><span>+3</span></div></div>
+
+      <div class="mod-h"><span>06</span><b>PATCH BAY</b><i></i></div>
+      <div class="patch" id="patch"><div class="patch-labels"><span>IN</span><span>FEEL</span><span>OUT</span><span>CLK</span><span>GND</span></div><div class="patch-jacks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="patch-labels"><span>SIG</span><span>MOD</span><span>SUM</span><span>REC</span><span>PWR</span></div></div>
+    </aside>
+
+    <!-- ================= BOTTOM RAIL ================= -->
+    <footer class="mod bottom-rail">
+      <div class="br-left">
+        <div class="crop-mark" aria-hidden="true"></div>
+        <div><b>SHEET 01 / 01</b><span>SCALE 1:1 &nbsp;&#183;&nbsp; DO NOT SCALE</span><span>&#169; 2026 VIBRATO STUDIO</span></div>
+      </div>
+      <div class="ticker"><div class="ticker-tag">&#9673; LIVE FEED</div><div class="ticker-window"><div class="ticker-track" id="tickerTrack"></div></div></div>
+      <div class="br-right">
+        <button class="open-btn" id="openBtn" data-cursor="TUNE IN">OPEN CHANNEL <span>&#9656;</span></button>
+        <span>HELLO@VIBRATO.STUDIO</span>
+      </div>
+    </footer>
+
+    <!-- ================= OVERLAYS ================= -->
+    <div class="seal" id="seal" aria-hidden="true">
+      <svg viewBox="0 0 140 140" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <defs><path id="sealPath" d="M70,70 m-53,0 a53,53 0 1,1 106,0 a53,53 0 1,1 -106,0"/></defs>
+        <circle cx="70" cy="70" r="68" class="seal-fill"/>
+        <circle cx="70" cy="70" r="60" class="seal-ring"/>
+        <text class="seal-text"><textPath href="#sealPath" xlink:href="#sealPath" startOffset="0%">VIBRATO &#183; TUNED BY FEEL &#183; VIBRATO &#183; TUNED BY FEEL &#183; </textPath></text>
+        <circle cx="70" cy="70" r="33" class="seal-inner"/>
+        <text x="70" y="63" class="seal-glyph" text-anchor="middle">&#8961;</text>
+        <text x="70" y="86" class="seal-num" text-anchor="middle">01</text>
+      </svg>
+    </div>
+
+    <div class="sticker" aria-hidden="true"><b>HAND&#8211;BUILT</b><span>NO TEMPLATES WERE HARMED</span><div class="sticker-bar"></div></div>
+
+    <!-- patch cables, above everything -->
+    <svg class="cables" id="cables" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true"></svg>
+
+    <!-- printed receipt -->
+    <div class="receipt" id="receipt" aria-live="polite">
+      <div class="rc-head">VIBRATO / TRANSMISSION SLIP</div>
+      <div class="rc-id" id="rcId">TX&#8211;0000</div>
+      <div class="rc-msg" id="rcMsg"></div>
+      <div class="rc-foot"><span id="rcTime">--:--:--</span><span>SIGNAL RECEIVED &#10003;</span></div>
+      <div class="rc-stamp">RECEIVED</div>
+    </div>
+
+    <div class="edge-note" aria-hidden="true">FIG. 01 &#8212; VIBE RECEIVER / MODEL 01 / ASSEMBLY DRAWING</div>
+  </div>
+</div>
+
+<!-- custom reticle cursor -->
+<div class="reticle" id="reticle" aria-hidden="true">
+  <svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="13"/><path d="M22 0 v10 M22 34 v10 M0 22 h10 M34 22 h10"/><circle cx="22" cy="22" r="1.6" class="dot"/></svg>
+  <span id="reticleLabel"></span>
+</div>
+
+<noscript><div style="position:fixed;inset:0;display:grid;place-items:center;background:#E8E1CE;color:#16181A;font:16px monospace;padding:2rem;text-align:center;z-index:99">VIBRATO / This instrument requires JavaScript to power its displays.</div></noscript>
+
+<script src="engine.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

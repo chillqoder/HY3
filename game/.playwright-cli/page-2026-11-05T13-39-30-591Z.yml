@@ -1,0 +1,41 @@
+- generic [ref=e2]:
+  - generic:
+    - generic:
+      - generic:
+        - generic: INTEGRITY
+        - generic:
+          - generic: RESONANCE
+          - generic: "100"
+          - generic: PULSE 35 · SHIELD 50
+      - generic:
+        - generic:
+          - generic: RELAYS
+          - generic:
+            - generic: A
+            - generic: B
+            - generic: C
+        - generic:
+          - generic: ARCHIVES
+          - generic: 0 / 3
+        - generic:
+          - button "Mute audio" [ref=e4] [cursor=pointer]: SOUND ON
+          - button "Pause" [ref=e5] [cursor=pointer]: PAUSE
+    - generic: Buried Workshop
+    - generic [ref=e7]:
+      - heading "DEEPWAKE" [level=1] [ref=e8]
+      - paragraph [ref=e9]: Restore three relays beneath the buried station, reconnect the ascent lift, and reach the surface.
+      - generic [ref=e10]:
+        - generic [ref=e11]: A/D move · Space jump (hold) · Shift dash · Q echo pulse · E interact · P pause · R retry
+        - generic [ref=e12]:
+          - generic [ref=e13]: Personal Records
+          - generic [ref=e14]:
+            - generic [ref=e15]: Best completion time
+            - generic [ref=e16]: —
+            - generic [ref=e17]: Best full-archive time
+            - generic [ref=e18]: —
+            - generic [ref=e19]: Fewest recoveries
+            - generic [ref=e20]: —
+        - generic [ref=e21]:
+          - 'button "Sound: On" [ref=e23] [cursor=pointer]'
+          - 'button "Reduced Motion: Off" [ref=e25] [cursor=pointer]'
+      - button "Begin Expedition" [ref=e27] [cursor=pointer]

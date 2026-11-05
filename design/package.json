@@ -1,0 +1,10 @@
+{
+  "name": "vibrato",
+  "version": "1.0.0",
+  "private": true,
+  "description": "VIBRATO — a vibe-engineering studio, built as a single interactive schematic sheet.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}

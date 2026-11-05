@@ -1,0 +1,11 @@
+{
+  "name": "deepwake",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "DEEPWAKE - a browser voxel platformer built with vanilla JS and a vendored Three.js",
+  "scripts": {
+    "test": "node tests/checks.mjs",
+    "serve": "python3 -m http.server 8000"
+  }
+}
